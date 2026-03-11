@@ -76,10 +76,11 @@ public class LoginTest {
         }
 
         String loginButtonText = loginButtonElement.getAttribute("value");
+
         if (!"Login".equals(loginButtonText)) {
             throw new AssertionError("Expected 'Login' but got '" + loginButtonText + "'");
         }
-        
+
         // Setup credentials for failed login
         String failedUsername = "wrong_user";
         String failedPassword = "no_secret_sauce";
