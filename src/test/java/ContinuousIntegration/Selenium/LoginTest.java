@@ -1,28 +1,34 @@
 package ContinuousIntegration.Selenium;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.By;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class LoginTest {
-    public static void main(String [] args) {
-        // Initialize options with incognito argument
-        org.openqa.selenium.chrome.ChromeOptions options = new org.openqa.selenium.chrome.ChromeOptions();
+    WebDriver driver;
+
+    @BeforeEach
+    void setup() {
+        WebDriverManager.chromedriver().setup();
+
+        ChromeOptions options = new ChromeOptions();
+
         options.addArguments("--incognito");
-        WebDriver driver = new ChromeDriver(options);
 
-        // Navigate to saucedemo
-        driver.get("https://www.saucedemo.com");
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
+        driver.get("https://www.saucedemo.com");
+    }
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        }
+    @AfterEach
+    void teardown() {
+        if (driver != null) driver.quit();
+    }
 
+    @Test
+    void login() throws InterruptedException {
         // Setup credentials for successful login
         String passedUsername = "visual_user";
         String passedPassword = "secret_sauce";
@@ -39,6 +45,7 @@ public class LoginTest {
 
         WebElement inventoryHeader = driver.findElement(By.xpath("//*[@id=\"header_container\"]/div[2]/span"));
         String inventoryHeaderText = inventoryHeader.getText();
+        Thread.sleep(1000);
 
         // Validate successful login
         if (!"Products".equals(inventoryHeaderText)) {
@@ -51,27 +58,29 @@ public class LoginTest {
             System.out.println("- Login successful: Failed");
         }
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        }
+        Thread.sleep(1000);
 
         // Automate logout
         WebElement menuButton = driver.findElement(By.xpath("//*[@id=\"react-burger-menu-btn\"]"));
         menuButton.click();
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        }
+        Thread.sleep(1000);
 
         WebElement logoutButton = driver.findElement(By.xpath("//*[@id=\"logout_sidebar_link\"]"));
         logoutButton.click();
 
+        WebElement loginButtonElement = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
+
+        if (loginButtonElement.isDisplayed()) {
+            System.out.println("- Logout successful: Passed");
+        } else {
+            System.out.println("- Logout successful: Failed");
+        }
+
+        String loginButtonText = loginButtonElement.getAttribute("value");
+        if (!"Login".equals(loginButtonText)) {
+            throw new AssertionError("Expected 'Login' but got '" + loginButtonText + "'");
+        }
         // Setup credentials for failed login
         String failedUsername = "wrong_user";
         String failedPassword = "no_secret_sauce";
@@ -86,12 +95,7 @@ public class LoginTest {
         loginButton = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
         loginButton.click();
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        }
+        Thread.sleep(1000);
 
         WebElement errorMessage = driver.findElement(By.xpath("//*[@data-test=\"error\"]"));
         String errorMessageText = errorMessage.getText();
@@ -108,7 +112,5 @@ public class LoginTest {
         } else {
             System.out.println("- Login unsuccessful: Failed");
         }
-
-        driver.quit();
     }
 }
