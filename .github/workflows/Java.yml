@@ -22,4 +22,4 @@ jobs:
       - name: Build & Test
         env:
           CHROME_OPTS: "--headless --no-sandbox --disable-dev-shm-usage"
-        run: mvn -B verify
+        run: mvn -B clean test -Dwebdriver.chrome.driver=/usr/bin/chromedriver
