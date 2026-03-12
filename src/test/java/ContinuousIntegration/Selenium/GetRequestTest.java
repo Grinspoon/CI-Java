@@ -33,7 +33,7 @@ public class GetRequestTest {
         try {
             java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
             java.net.http.HttpRequest request = java.net.http.HttpRequest
-                    .newBuilder(java.net.URI.create("https://fakestoreapi.com/"))
+                    .newBuilder(java.net.URI.create("https://fakestoreapi.com"))
                     .GET()
                     .build();
             java.net.http.HttpResponse<String> response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
