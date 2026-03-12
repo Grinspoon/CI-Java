@@ -17,6 +17,7 @@ public class GetRequestTest {
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }
@@ -46,6 +47,7 @@ public class GetRequestTest {
         try {
             String responseBody = response.body();
             org.json.JSONArray jsonArray = new org.json.JSONArray(responseBody);
+
             int itemCount = jsonArray.length();
             int mockDataItemCount = 0;
 
