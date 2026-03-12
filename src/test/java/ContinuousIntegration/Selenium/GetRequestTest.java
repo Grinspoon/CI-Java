@@ -27,7 +27,7 @@ public class GetRequestTest {
     }
 
     @Test
-    void testGetRequestResponseCode200() {
+    void testGetRequest() {
         driver.get("https://fakestoreapi.com");
 
         try {
