@@ -13,6 +13,7 @@ public class LoginTest {
     void setup() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
+        // Flags to run headless in GitHub Actions
         options.addArguments("--incognito");
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
