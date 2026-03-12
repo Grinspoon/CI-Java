@@ -43,8 +43,8 @@ public class GetRequestTest {
             Assertions.assertEquals(200, statusCode, "Expected status response to be 200");
             System.out.println("- Passed: Got a 200 status response");
 
-        String responseBody = response.body();
         try {
+            String responseBody = response.body();
             org.json.JSONArray jsonArray = new org.json.JSONArray(responseBody);
             int itemCount = jsonArray.length();
             int mockDataItemCount = 0;
