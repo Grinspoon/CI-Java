@@ -29,7 +29,6 @@ public class GetRequestTest {
 
     @Test
     void testGetRequest() {
-        driver.get("https://fakestoreapi.com");
 
         try {
             java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
@@ -81,7 +80,7 @@ public class GetRequestTest {
                 }
             }
 
-            // Print and compare
+            // Validate ID 15 content from the mock data and response
             if (mockDataId15 != null && apiDataId15 != null) {
                 Assertions.assertEquals(mockDataId15.toString(), apiDataId15.toString(),
                         "The item with ID 15 is not the same in MockData.json and API response");
