@@ -38,11 +38,11 @@ public class GetRequestTest {
                     .build();
             java.net.http.HttpResponse<String> response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
             int statusCode = response.statusCode();
-            Assertions.assertEquals(200, statusCode, "Expected HTTP status 200 from fakestoreapi.com");
+            Assertions.assertEquals(200, statusCode, "Expected status response to be 200");
             System.out.println("- Passed: Got a 200 status response");
         } catch (Exception e) {
-            Assertions.fail("HTTP GET request to fakestoreapi.com failed: " + e.getMessage());
-            System.out.println("- Failed: 200 status response failed, instead got: " +  e.getMessage());
+            Assertions.fail("Request failed with status response: " + e.getMessage());
+            System.out.println("- Failed: 200 status response not valid, instead got: " +  e.getMessage());
         }
 
         String pageSource = driver.getPageSource();
