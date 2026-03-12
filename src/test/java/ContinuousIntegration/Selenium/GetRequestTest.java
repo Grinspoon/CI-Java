@@ -37,7 +37,9 @@ public class GetRequestTest {
                     .GET()
                     .build();
             java.net.http.HttpResponse<String> response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
+
             int statusCode = response.statusCode();
+
             Assertions.assertEquals(200, statusCode, "Expected status response to be 200");
             System.out.println("- Passed: Got a 200 status response");
 
