@@ -29,7 +29,6 @@ public class GetRequestTest {
 
     @Test
     void testGetRequest() {
-
         try {
             // GET Request
             java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
