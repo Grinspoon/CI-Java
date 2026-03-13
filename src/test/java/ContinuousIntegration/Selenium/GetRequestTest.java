@@ -90,7 +90,7 @@ public class GetRequestTest {
             Assertions.assertEquals(mockDataId15.getString("title"), apiDataId15.getString("title"));
             Assertions.assertEquals(mockDataId15.getDouble("price"), apiDataId15.getDouble("price"));
             Assertions.assertEquals(mockDataId15.getString("category"), apiDataId15.getString("category"));
-            System.out.println("- Passed: ID 15 has equal fields for Title, Price and Category in both the mock data and API response");
+            System.out.println("- Passed: ID 15 has equal fields and data for Title, Price and Category in both the mock data and API response");
 
             // TEST 4: Compare and validate all the items and data from ID 15 against the mock data and API response
             Assertions.assertEquals(mockDataId15.toString(), apiDataId15.toString(),
