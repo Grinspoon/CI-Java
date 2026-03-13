@@ -40,7 +40,7 @@ public class GetRequestTest {
                     .build();
             java.net.http.HttpResponse<String> response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
 
-            // Import the mock data JSON file
+            // Import MockData.json
             java.nio.file.Path mockDataPath = java.nio.file.Paths.get("src/test/java/ContinuousIntegration/Selenium/MockData.json");
             String mockDataJsonString = java.nio.file.Files.readString(mockDataPath);
             org.json.JSONArray mockDataArray = new org.json.JSONArray(mockDataJsonString);
@@ -48,20 +48,10 @@ public class GetRequestTest {
             String responseBody = response.body();
             org.json.JSONArray jsonArray = new org.json.JSONArray(responseBody);
 
-            // Setup data points for tests
+            // Setup data points
             int statusCode = response.statusCode();
             int itemCount = jsonArray.length();
             int mockDataItemCount = 0;
-
-            // Find the item with ID 15 from the mock data
-            org.json.JSONObject mockDataId15 = null;
-            for (int i = 0; i < mockDataArray.length(); i++) {
-                org.json.JSONObject obj = mockDataArray.getJSONObject(i);
-                if (obj.has("id") && obj.getInt("id") == 15) {
-                    mockDataId15 = obj;
-                    break;
-                }
-            }
 
             // Find the item with ID 15 from API response
             org.json.JSONObject apiDataId15 = null;
@@ -69,6 +59,16 @@ public class GetRequestTest {
                 org.json.JSONObject obj = jsonArray.getJSONObject(i);
                 if (obj.has("id") && obj.getInt("id") == 15) {
                     apiDataId15 = obj;
+                    break;
+                }
+            }
+
+            // Find the item with ID 15 from the mock data
+            org.json.JSONObject mockDataId15 = null;
+            for (int i = 0; i < mockDataArray.length(); i++) {
+                org.json.JSONObject obj = mockDataArray.getJSONObject(i);
+                if (obj.has("id") && obj.getInt("id") == 15) {
+                    mockDataId15 = obj;
                     break;
                 }
             }
@@ -82,7 +82,7 @@ public class GetRequestTest {
             Assertions.assertEquals(mockDataItemCount, itemCount, "Number of items in API response does not match the mock data");
             System.out.println("- Passed: Number of total ID's (Products) from API response: " + itemCount + " / " + mockDataItemCount);
 
-            // TEST 3: Compare and validate specific field data (Title, Price and Category) from ID 15 against the mock data and API response
+            // TEST 3: Compare and validate specific field and data (Title, Price and Category) from ID 15 against the mock data and API response
             assert mockDataId15 != null;
             assert apiDataId15 != null;
 
@@ -95,7 +95,7 @@ public class GetRequestTest {
             Assertions.assertEquals(mockDataId15.toString(), apiDataId15.toString(),
                     "The item with ID 15 is not the same in the mock data and API response");
             System.out.println("- Passed: All the data in ID 15 is equal in both the mock data and API response.");
-            
+
         } catch (Exception e) {
             System.out.println("Catch error: " + e.getMessage());
         }
