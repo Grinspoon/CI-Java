@@ -40,11 +40,11 @@ public class GetRequestTest {
                     .build();
             java.net.http.HttpResponse<String> response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
 
-            // Assert the responseBody from the API response
+            // Assert responseBody from the API response to be used in responseArray
             String responseBody = response.body();
             org.json.JSONArray responseArray = new org.json.JSONArray(responseBody);
 
-            // Import MockData.json
+            // Import data from MockData.json to be used in mockDataArray
             java.nio.file.Path mockDataPath = java.nio.file.Paths.get("src/test/java/ContinuousIntegration/Selenium/MockData.json");
             String mockDataJsonString = java.nio.file.Files.readString(mockDataPath);
             org.json.JSONArray mockDataArray = new org.json.JSONArray(mockDataJsonString);
@@ -54,7 +54,7 @@ public class GetRequestTest {
             int itemCount = responseArray.length();
             int mockDataItemCount = 0;
 
-            // Find the item with ID 15 from API response
+            // Find the item and data with ID 15 from API response
             org.json.JSONObject apiDataId15 = null;
             for (int i = 0; i < responseArray.length(); i++) {
                 org.json.JSONObject obj = responseArray.getJSONObject(i);
@@ -64,7 +64,7 @@ public class GetRequestTest {
                 }
             }
 
-            // Find the item with ID 15 from the mock data
+            // Find the item and data with ID 15 from the mock data
             org.json.JSONObject mockDataId15 = null;
             for (int i = 0; i < mockDataArray.length(); i++) {
                 org.json.JSONObject obj = mockDataArray.getJSONObject(i);
