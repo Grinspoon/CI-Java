@@ -82,7 +82,7 @@ public class GetRequestTest {
             Assertions.assertEquals(mockDataItemCount, itemCount, "Number of items in API response does not match the mock data");
             System.out.println("- Passed: Number of total ID's (Products) from API response: " + itemCount + " / " + mockDataItemCount);
 
-            // TEST 3: Compare and validate specific fields (Title, Price and Category) from ID 15 against the mock data and API response
+            // TEST 3: Compare and validate specific field data (Title, Price and Category) from ID 15 against the mock data and API response
             assert mockDataId15 != null;
             assert apiDataId15 != null;
 
