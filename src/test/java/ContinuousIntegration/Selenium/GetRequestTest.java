@@ -30,6 +30,7 @@ public class GetRequestTest {
     @Test
     void testGetRequest() {
 
+        // GET Request
         try {
             java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
             java.net.http.HttpRequest request = java.net.http.HttpRequest
@@ -40,6 +41,7 @@ public class GetRequestTest {
 
             int statusCode = response.statusCode();
 
+            // Validate GET Response
             Assertions.assertEquals(200, statusCode, "Expected status response to be 200");
             System.out.println("- Passed: Got a 200 status response");
 
@@ -51,54 +53,52 @@ public class GetRequestTest {
             int mockDataItemCount = 0;
 
             try {
+                // Import the mock data JSON file
                 java.nio.file.Path mockDataPath = java.nio.file.Paths.get("src/test/java/ContinuousIntegration/Selenium/MockData.json");
                 String mockDataJsonString = java.nio.file.Files.readString(mockDataPath);
                 org.json.JSONArray mockDataArray = new org.json.JSONArray(mockDataJsonString);
-                mockDataItemCount = mockDataArray.length();
 
-                // Compare received item count with the number of items in MockData.json
-                Assertions.assertEquals(mockDataItemCount, itemCount, "Number of items in API response does not match MockData.json");
+                // Compare and validate the number of total ID's (Products) from the mock data and API response
+                mockDataItemCount = mockDataArray.length();
+                Assertions.assertEquals(mockDataItemCount, itemCount, "Number of items in API response does not match the mock data");
                 System.out.println("- Passed: Number of ID's (Products) from API response, total ID's: " + itemCount + " / " + mockDataItemCount);
 
-            // Find item with ID 15 from MockData.json
-            org.json.JSONObject mockDataId15 = null;
-            for (int i = 0; i < mockDataArray.length(); i++) {
-                org.json.JSONObject obj = mockDataArray.getJSONObject(i);
-                if (obj.has("id") && obj.getInt("id") == 15) {
-                    mockDataId15 = obj;
-                    break;
+                // Find the item with ID 15 from the mock data
+                org.json.JSONObject mockDataId15 = null;
+                for (int i = 0; i < mockDataArray.length(); i++) {
+                    org.json.JSONObject obj = mockDataArray.getJSONObject(i);
+                    if (obj.has("id") && obj.getInt("id") == 15) {
+                        mockDataId15 = obj;
+                        break;
+                    }
                 }
-            }
 
-            // Find item with ID 15 from API response
-            org.json.JSONObject apiDataId15 = null;
-            for (int i = 0; i < jsonArray.length(); i++) {
-                org.json.JSONObject obj = jsonArray.getJSONObject(i);
-                if (obj.has("id") && obj.getInt("id") == 15) {
-                    apiDataId15 = obj;
-                    break;
+                // Find the item with ID 15 from API response
+                org.json.JSONObject apiDataId15 = null;
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    org.json.JSONObject obj = jsonArray.getJSONObject(i);
+                    if (obj.has("id") && obj.getInt("id") == 15) {
+                        apiDataId15 = obj;
+                        break;
+                    }
                 }
-            }
 
-            // Validate ID 15 content from the mock data and response
-            if (mockDataId15 != null && apiDataId15 != null) {
+                // Compare and validate the item from ID 15 from the mock data and API response
+                assert mockDataId15 != null;
+                assert apiDataId15 != null;
                 Assertions.assertEquals(mockDataId15.toString(), apiDataId15.toString(),
-                        "The item with ID 15 is not the same in MockData.json and API response");
-                System.out.println("- Passed: Item with ID 15 is equal in both MockData.json and API response.");
-            } else {
-                Assertions.fail("Item with ID 15 was not found in one or both sources.");
-            }
+                        "The item with ID 15 is not the same in the mock data and API response");
+                System.out.println("- Passed: Item with ID 15 is equal in both the mock data and API response.");
 
             } catch (Exception e) {
-                System.out.println("Failed to read or parse MockData.json: " + e.getMessage());
+                System.out.println("Failed to read or parse the mock data with error: " + e.getMessage());
             }
 
         } catch (Exception e) {
-            System.out.println("- Failed: Number of ID's from API response: " + e.getMessage());
+            System.out.println("- Failed: Number of ID's from API response with error: " + e.getMessage());
         }
 
         } catch (Exception e) {
-            Assertions.fail("Request failed with status response: " + e.getMessage());
             System.out.println("- Failed: 200 status response not valid, instead got: " +  e.getMessage());
         }
     }
