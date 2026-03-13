@@ -40,23 +40,24 @@ public class GetRequestTest {
                     .build();
             java.net.http.HttpResponse<String> response = client.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
 
+            // Assert the responseBody from the API response
+            String responseBody = response.body();
+            org.json.JSONArray responseAPIArray = new org.json.JSONArray(responseBody);
+
             // Import MockData.json
             java.nio.file.Path mockDataPath = java.nio.file.Paths.get("src/test/java/ContinuousIntegration/Selenium/MockData.json");
             String mockDataJsonString = java.nio.file.Files.readString(mockDataPath);
             org.json.JSONArray mockDataArray = new org.json.JSONArray(mockDataJsonString);
 
-            String responseBody = response.body();
-            org.json.JSONArray jsonArray = new org.json.JSONArray(responseBody);
-
             // Setup data points
             int statusCode = response.statusCode();
-            int itemCount = jsonArray.length();
+            int itemCount = responseAPIArray.length();
             int mockDataItemCount = 0;
 
             // Find the item with ID 15 from API response
             org.json.JSONObject apiDataId15 = null;
-            for (int i = 0; i < jsonArray.length(); i++) {
-                org.json.JSONObject obj = jsonArray.getJSONObject(i);
+            for (int i = 0; i < responseAPIArray.length(); i++) {
+                org.json.JSONObject obj = responseAPIArray.getJSONObject(i);
                 if (obj.has("id") && obj.getInt("id") == 15) {
                     apiDataId15 = obj;
                     break;
