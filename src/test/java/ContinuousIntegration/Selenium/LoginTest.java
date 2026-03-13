@@ -20,7 +20,6 @@ public class LoginTest {
         options.addArguments("--disable-dev-shm-usage");
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com");
     }
 

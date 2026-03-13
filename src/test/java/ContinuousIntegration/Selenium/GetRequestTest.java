@@ -20,7 +20,6 @@ public class GetRequestTest {
         options.addArguments("--disable-dev-shm-usage");
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
     }
 
     @AfterEach
