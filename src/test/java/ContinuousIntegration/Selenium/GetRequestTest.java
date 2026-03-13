@@ -11,6 +11,7 @@ public class GetRequestTest {
 
     @BeforeEach
     void setup() {
+        // Run headless Chrome instance
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
@@ -30,8 +31,8 @@ public class GetRequestTest {
     @Test
     void testGetRequest() {
 
-        // GET Request
         try {
+            // GET Request
             java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
             java.net.http.HttpRequest request = java.net.http.HttpRequest
                     .newBuilder(java.net.URI.create("https://fakestoreapi.com/products"))
