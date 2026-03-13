@@ -73,6 +73,10 @@ public class GetRequestTest {
                 }
             }
 
+            // Null check
+            assert mockDataId15 != null;
+            assert apiDataId15 != null;
+
             // TEST 1: Validate GET Response status
             Assertions.assertEquals(200, statusCode, "Expected status response to be 200, instead got: " + statusCode);
             System.out.println("- Passed: Got a 200 status response");
@@ -83,9 +87,6 @@ public class GetRequestTest {
             System.out.println("- Passed: Number of total ID's (Products) from API response: " + itemCount + " / " + mockDataItemCount);
 
             // TEST 3: Compare and validate specific field and data (Title, Price and Category) from ID 15 against the mock data and API response
-            assert mockDataId15 != null;
-            assert apiDataId15 != null;
-
             Assertions.assertEquals(mockDataId15.getString("title"), apiDataId15.getString("title"));
             Assertions.assertEquals(mockDataId15.getDouble("price"), apiDataId15.getDouble("price"));
             Assertions.assertEquals(mockDataId15.getString("category"), apiDataId15.getString("category"));
