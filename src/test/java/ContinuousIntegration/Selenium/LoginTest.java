@@ -31,6 +31,7 @@ public class LoginTest {
 
     @Test
     void testLogin() throws InterruptedException {
+
         // Setup credentials for successful login
         String passedUsername = "visual_user";
         String passedPassword = "secret_sauce";
