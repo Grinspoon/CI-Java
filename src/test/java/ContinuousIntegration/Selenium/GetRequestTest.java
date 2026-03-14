@@ -11,7 +11,7 @@ public class GetRequestTest {
 
     @BeforeEach
     void setup() {
-        // Run headless Chrome instance
+        // Run headless instance
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
