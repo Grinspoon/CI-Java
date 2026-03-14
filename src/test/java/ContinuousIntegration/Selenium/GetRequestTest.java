@@ -85,9 +85,9 @@ public class GetRequestTest {
             System.out.println("- Passed: Number of total ID's (Products) from API response: " + itemCount + " / " + mockDataItemCount);
 
             // TEST 3: Compare and validate specific field and data (Title, Price and Category) from ID 15 against the mock data and API response
-            Assertions.assertEquals(mockDataId15.getString("title"), apiDataId15.getString("title"));
-            Assertions.assertEquals(mockDataId15.getDouble("price"), apiDataId15.getDouble("price"));
-            Assertions.assertEquals(mockDataId15.getString("category"), apiDataId15.getString("category"));
+            Assertions.assertEquals(mockDataId15.getString("title"), apiDataId15.getString("title"), "Title field mismatch");
+            Assertions.assertEquals(mockDataId15.getDouble("price"), apiDataId15.getDouble("price"), "Price field mismatch");
+            Assertions.assertEquals(mockDataId15.getString("category"), apiDataId15.getString("category"), "Category field mismatch");
             System.out.println("- Passed: ID 15 has equal fields and data for Title, Price and Category in both the mock data and API response");
 
             // TEST 4: Compare and validate all the items and data from ID 15 against the mock data and API response
