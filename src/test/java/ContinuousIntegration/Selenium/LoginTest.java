@@ -37,13 +37,10 @@ public class LoginTest {
         // Automate successful login
         WebElement usernameField = driver.findElement(By.xpath("//*[@id=\"user-name\"]"));
         usernameField.sendKeys(passedUsername);
-
         WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"password\"]"));
         passwordField.sendKeys(passedPassword);
-
         WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
         loginButton.click();
-
         WebElement inventoryHeader = driver.findElement(By.xpath("//*[@id=\"header_container\"]/div[2]/span"));
         String inventoryHeaderText = inventoryHeader.getText();
         Thread.sleep(1000);
@@ -64,12 +61,9 @@ public class LoginTest {
         // Automate logout
         WebElement menuButton = driver.findElement(By.xpath("//*[@id=\"react-burger-menu-btn\"]"));
         menuButton.click();
-
         Thread.sleep(1000);
-
         WebElement logoutButton = driver.findElement(By.xpath("//*[@id=\"logout_sidebar_link\"]"));
         logoutButton.click();
-
         WebElement loginButtonElement = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
 
         if (loginButtonElement.isDisplayed()) {
@@ -91,15 +85,11 @@ public class LoginTest {
         // Automate failed login
         usernameField = driver.findElement(By.xpath("//*[@id=\"user-name\"]"));
         usernameField.sendKeys(failedUsername);
-
         passwordField = driver.findElement(By.xpath("//*[@id=\"password\"]"));
         passwordField.sendKeys(failedPassword);
-
         loginButton = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
         loginButton.click();
-
         Thread.sleep(1000);
-
         WebElement errorMessage = driver.findElement(By.xpath("//*[@data-test=\"error\"]"));
         String errorMessageText = errorMessage.getText();
 
