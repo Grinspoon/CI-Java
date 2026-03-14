@@ -18,7 +18,6 @@ public class LoginTest {
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-
         driver = new ChromeDriver(options);
         driver.get("https://www.saucedemo.com");
     }
