@@ -82,18 +82,18 @@ public class GetRequestTest {
             // TEST 2: Validate the number of total ID's (Products) and compare with the mock data and API response
             mockDataItemCount = mockDataArray.length();
             Assertions.assertEquals(mockDataItemCount, itemCount, "Number of items in API response does not match the mock data");
-            System.out.println("- Passed: Number of total ID's (Products) from API response: " + itemCount + " / " + mockDataItemCount);
+            System.out.println("- Passed: Number of total ID's (Products) from the mock data: " + mockDataItemCount + " API response: " + itemCount);
 
-            // TEST 3: Validate specific field and it's data (Title, Price and Category) from ID 15 and compare with the mock data and API response
+            // TEST 3: Validate specific fields and it's data (Title, Price and Category) from ID 15 and compare with the mock data and API response
             Assertions.assertEquals(mockDataId15.getString("title"), apiDataId15.getString("title"), "Title field mismatch");
             Assertions.assertEquals(mockDataId15.getDouble("price"), apiDataId15.getDouble("price"), "Price field mismatch");
             Assertions.assertEquals(mockDataId15.getString("category"), apiDataId15.getString("category"), "Category field mismatch");
             System.out.println("- Passed: ID 15 has equal fields and data for Title, Price and Category in both the mock data and API response");
 
-            // TEST 4: Validate all the items and data from ID 15 and compare with the mock data and API response
+            // TEST 4: Validate the whole object for ID 15 and compare with the mock data and API response
             Assertions.assertEquals(mockDataId15.toString(), apiDataId15.toString(),
-                    "The item with ID 15 is not the same in the mock data and API response");
-            System.out.println("- Passed: All the data in ID 15 is equal in both the mock data and API response.");
+                    "The object for ID 15 is not the same in the mock data and API response");
+            System.out.println("- Passed: The object for ID 15 is equal in both the mock data and API response.");
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
