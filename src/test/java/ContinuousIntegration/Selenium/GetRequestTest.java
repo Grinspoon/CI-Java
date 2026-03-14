@@ -18,7 +18,6 @@ public class GetRequestTest {
         options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-
         driver = new ChromeDriver(options);
     }
 
@@ -97,7 +96,7 @@ public class GetRequestTest {
             System.out.println("- Passed: All the data in ID 15 is equal in both the mock data and API response.");
 
         } catch (Exception e) {
-            System.out.println("Catch error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
