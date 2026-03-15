@@ -6,12 +6,13 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class LoginTest {
     WebDriver driver;
 
     @BeforeEach
     void setup() {
-        // Run headless instance
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
@@ -28,8 +29,7 @@ public class LoginTest {
     }
 
     @Test
-    void testLogin() throws InterruptedException {
-
+    void testSuccessfulLoginAndLogout() throws InterruptedException {
         // Setup credentials for successful login
         String passedUsername = "visual_user";
         String passedPassword = "secret_sauce";
@@ -42,21 +42,14 @@ public class LoginTest {
         WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
         loginButton.click();
         WebElement inventoryHeader = driver.findElement(By.xpath("//*[@id=\"header_container\"]/div[2]/span"));
-        String inventoryHeaderText = inventoryHeader.getText();
         Thread.sleep(1000);
 
         // Validate successful login
-        if (!"Products".equals(inventoryHeaderText)) {
-            throw new AssertionError("Expected 'Products' but got '" + inventoryHeaderText + "'");
-        }
+        String inventoryHeaderText = inventoryHeader.getText();
+        assertEquals("Products", inventoryHeaderText, "Expected to land on Products page after login");
+        assertTrue(inventoryHeader.isDisplayed(), "Inventory header should be displayed after login");
+        System.out.println("- Passed: Should login successfully with correct credentials");
 
-        if (inventoryHeader.isDisplayed()) {
-            System.out.println("- Login successful: Passed");
-        } else {
-            System.out.println("- Login successful: Failed");
-        }
-
-        Thread.sleep(1000);
 
         // Automate logout
         WebElement menuButton = driver.findElement(By.xpath("//*[@id=\"react-burger-menu-btn\"]"));
@@ -66,44 +59,35 @@ public class LoginTest {
         logoutButton.click();
         WebElement loginButtonElement = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
 
-        if (loginButtonElement.isDisplayed()) {
-            System.out.println("- Logout successful: Passed");
-        } else {
-            System.out.println("- Logout successful: Failed");
-        }
-
+        // Validate logout
+        assertTrue(loginButtonElement.isDisplayed(), "Login button should be displayed after logout");
         String loginButtonText = loginButtonElement.getAttribute("value");
+        assertEquals("Login", loginButtonText, "Login button text should be 'Login' after logout");
+        System.out.println("- Passed: Should logout successfully");
+    }
 
-        if (!"Login".equals(loginButtonText)) {
-            throw new AssertionError("Expected 'Login' but got '" + loginButtonText + "'");
-        }
-
+    @Test
+    void testFailedLogin() throws InterruptedException {
         // Setup credentials for failed login
         String failedUsername = "wrong_user";
         String failedPassword = "no_secret_sauce";
 
         // Automate failed login
-        usernameField = driver.findElement(By.xpath("//*[@id=\"user-name\"]"));
+        WebElement usernameField = driver.findElement(By.xpath("//*[@id=\"user-name\"]"));
         usernameField.sendKeys(failedUsername);
-        passwordField = driver.findElement(By.xpath("//*[@id=\"password\"]"));
+        WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"password\"]"));
         passwordField.sendKeys(failedPassword);
-        loginButton = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
+        WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
         loginButton.click();
         Thread.sleep(1000);
-        WebElement errorMessage = driver.findElement(By.xpath("//*[@data-test=\"error\"]"));
-        String errorMessageText = errorMessage.getText();
 
         // Validate failed login
-        if (!errorMessageText.equals("Epic sadface: Username and password do not match any user in this service")) {
-            throw new AssertionError("Error message on failed login not asserted.");
-        }
+        WebElement errorMessage = driver.findElement(By.xpath("//*[@data-test=\"error\"]"));
+        String errorMessageText = errorMessage.getText();
+        assertEquals("Epic sadface: Username and password do not match any user in this service", errorMessageText, "Error message on failed login not asserted.");
 
         WebElement errorContainer = driver.findElement(By.xpath("//*[@id=\"login_button_container\"]/div/form/div[3]"));
-
-        if (errorContainer.isDisplayed()) {
-            System.out.println("- Login unsuccessful: Passed");
-        } else {
-            System.out.println("- Login unsuccessful: Failed");
-        }
+        assertTrue(errorContainer.isDisplayed(), "Error container should be displayed after failed login");
+        System.out.println("- Passed: Should show error on failed login attempt with wrong credentials");
     }
 }
