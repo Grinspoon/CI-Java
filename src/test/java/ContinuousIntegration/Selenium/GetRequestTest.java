@@ -51,7 +51,7 @@ public class GetRequestTest {
             int itemCountAPI = responseArray.length();
             int ItemCountMockData = 0;
 
-            // Sort the data for ID 15 from API response and convert to object
+            // Sort the data for ID 15 from API response
             org.json.JSONObject apiDataId15 = null;
             for (int i = 0; i < responseArray.length(); i++) {
                 org.json.JSONObject obj = responseArray.getJSONObject(i);
@@ -61,7 +61,7 @@ public class GetRequestTest {
                 }
             }
 
-            // Sort the data for ID 15 from the mock data and convert to object
+            // Sort the data for ID 15 from the mock data
             org.json.JSONObject mockDataId15 = null;
             for (int i = 0; i < mockDataArray.length(); i++) {
                 org.json.JSONObject obj = mockDataArray.getJSONObject(i);
