@@ -48,8 +48,8 @@ public class GetRequestTest {
 
             // Setup data points
             int statusCode = response.statusCode();
-            int itemCount = responseArray.length();
-            int mockDataItemCount = 0;
+            int itemCountAPI = responseArray.length();
+            int ItemCountMockData = 0;
 
             // Sort the data with ID 15 from API response
             org.json.JSONObject apiDataId15 = null;
@@ -79,18 +79,22 @@ public class GetRequestTest {
             Assertions.assertEquals(200, statusCode, "Expected status response to be 200, instead got: " + statusCode);
             System.out.println("- Passed: Got a 200 status response");
 
-            // TEST 2: Validate the number of total ID's (Products) and compare with the mock data and API response
-            mockDataItemCount = mockDataArray.length();
-            Assertions.assertEquals(mockDataItemCount, itemCount, "Number of items in API response does not match the mock data");
-            System.out.println("- Passed: Number of total ID's (Products) from the mock data: " + mockDataItemCount + " API response: " + itemCount);
+            // TEST 2: Validate the number of total products and compare with the mock data and API response
+            ItemCountMockData = mockDataArray.length();
+            Assertions.assertEquals(ItemCountMockData, itemCountAPI, "Number of items in API response does not match the mock data");
+            System.out.println("- Passed: Number of total products (mock data: " + ItemCountMockData + " API response: " + itemCountAPI + ")");
 
-            // TEST 3: Validate specific fields and it's data (Title, Price and Category) from ID 15 and compare with the mock data and API response
+            // TEST 3: Validate number of fields in ID 15 and compare with the mock data and API response
+            Assertions.assertEquals(mockDataId15.length(), apiDataId15.length(), "ID 15 should have 7 product properties");
+            System.out.println("- Passed: Number of fields for ID 15 (mock data:" + mockDataId15.length() + " API response: " + apiDataId15.length() + ")");
+
+            // TEST 4: Validate specific field data (Title, Price and Category) from ID 15 and compare with the mock data and API response
             Assertions.assertEquals(mockDataId15.getString("title"), apiDataId15.getString("title"), "Title field mismatch");
             Assertions.assertEquals(mockDataId15.getDouble("price"), apiDataId15.getDouble("price"), "Price field mismatch");
             Assertions.assertEquals(mockDataId15.getString("category"), apiDataId15.getString("category"), "Category field mismatch");
-            System.out.println("- Passed: ID 15 has equal fields and data for Title, Price and Category in both the mock data and API response");
+            System.out.println("- Passed: ID 15 has equal fields for Title, Price and Category in both the mock data and API response");
 
-            // TEST 4: Validate the whole object for ID 15 and compare with the mock data and API response
+            // TEST 5: Validate the whole object for ID 15 and compare with the mock data and API response
             Assertions.assertEquals(mockDataId15.toString(), apiDataId15.toString(),
                     "The object for ID 15 is not the same in the mock data and API response");
             System.out.println("- Passed: The object for ID 15 is equal in both the mock data and API response.");
