@@ -10,7 +10,7 @@ Test login functionality for https://www.saucedemo.com
 - Test 2: Validate successful logout
 - Test 3: Validate unsuccessful login
 
-*File path: JavaScript/login-test.js*
+*File path: src/test/java/ContinuousIntegration/Selenium/LoginTest.java*
 
 #### Assignment Part 3
 
@@ -22,7 +22,7 @@ Test GET request and API response for https://fakestoreapi.com/products.
 - Test 4: Validate specific field data (Title, Price and Category) from ID 15 and compare with the mock data and API response
 - Test 5: Validate the whole object for ID 15 and compare with the mock data and API response
 
-*File path: JavaScript/get-request-test.js*
+*File path: src/test/java/ContinuousIntegration/Selenium/GetRequestTest.java*
 
 ## GitHub Actions
 
@@ -34,18 +34,7 @@ Test GET request and API response for https://fakestoreapi.com/products.
 
 1. Check your Chrome version and download corresponding chromedriver: https://googlechromelabs.github.io/chrome-for-testing/#stable
 2. Add the chromedriver to your respective operating system
-3. Create Java boilerplate from: https://start.spring.io and use configuration:
-    - Project: Maven
-    - Language: Java
-    - Spring Boot: 4.0.3
-    - Group: ContinuousIntegration
-    - Artifact: Selenium
-    - Package name: Selenium
-    - Packaging: Jar
-    - Configuration: YAML
-    - Java: 17
-4. Create a new Maven project from the boilerplate
-5. Use project pom.xml and then update the project to get the dependencies https://github.com/Grinspoon/CI-Java/blob/main/pom.xml
-6. Run tests:
+3. Update the project to get the pom.xml dependencies
+4. Run the tests:
     - LoginTest.java
     - GetRequestTest.java
