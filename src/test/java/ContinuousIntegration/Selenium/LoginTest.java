@@ -59,7 +59,7 @@ public class LoginTest {
         logoutButton.click();
         WebElement loginButtonElement = driver.findElement(By.xpath("//*[@id=\"login-button\"]"));
 
-        // Validate logout
+        // Validate successful logout
         assertTrue(loginButtonElement.isDisplayed(), "Login button should be displayed after logout");
         String loginButtonText = loginButtonElement.getAttribute("value");
         assertEquals("Login", loginButtonText, "Login button text should be 'Login' after logout");
@@ -81,7 +81,7 @@ public class LoginTest {
         loginButton.click();
         Thread.sleep(1000);
 
-        // Validate failed login
+        // Validate unsuccessful login
         WebElement errorMessage = driver.findElement(By.xpath("//*[@data-test=\"error\"]"));
         String errorMessageText = errorMessage.getText();
         assertEquals("Epic sadface: Username and password do not match any user in this service", errorMessageText, "Error message on failed login not asserted.");
