@@ -35,6 +35,6 @@ Test GET request and API response for https://fakestoreapi.com/products.
 1. Check your Chrome version and download corresponding chromedriver: https://googlechromelabs.github.io/chrome-for-testing/#stable
 2. Add the chromedriver to your respective operating system
 3. Update the project to get the pom.xml dependencies
-4. Run the tests:
+4. Run the tests and observe output:
     - LoginTest.java
     - GetRequestTest.java
